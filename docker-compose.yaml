@@ -1,0 +1,72 @@
+services:
+  frontend-user:
+    build:
+      context: ./Userclient
+      dockerfile: Dockerfile
+    container_name: frontend-user
+    environment:
+      - NODE_ENV=docker
+    ports:
+      - 3200:3000
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend-server
+    networks:
+      - mern-network
+
+  frontend-admin:
+    build:
+      context: ./Adminclient
+      dockerfile: Dockerfile
+    container_name: frontend-admin
+    environment:
+      - NODE_ENV=docker
+    ports:
+      - 3300:3000
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend-server
+    networks:
+      - mern-network
+
+  backend-server:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: backend-server
+    restart: always
+    ports:
+      - 5000:5000
+    stdin_open: true
+    environment:
+      - NODE_ENV=docker
+    tty: true
+    depends_on:
+      - database
+    networks:
+      - mern-network
+
+  database:
+    image: mongo
+    container_name: database
+    ports:
+      - 27018:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - /home/yk/mongo-backup:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
