@@ -51,6 +51,9 @@ Backend: Contains backend logic, API, and tests.
 Dockerfile: Docker configuration for containerization.
 terraform: Terraform files for infrastructure setup.
 .github/workflows: GitHub Actions workflow for automated deployment.
+
+
+
 Prerequisites
 Docker
 Terraform
@@ -107,12 +110,18 @@ The Student Examination System is a Dockerized application designed for managing
 │   └── deployment.yml
 ├── README.md
 └── ...
+
+
+
 AdminClient: Contains files related to the Admin interface.
 UserClient: Contains files related to the User interface.
 Backend: Contains backend logic, API, and tests.
 Dockerfile: Docker configuration for containerization.
 terraform: Terraform files for infrastructure setup.
 .github/workflows: GitHub Actions workflow for automated deployment.
+
+
+
 Prerequisites
 Docker
 Terraform
